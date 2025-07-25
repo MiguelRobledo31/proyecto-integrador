@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
   $stmt->bind_param("sssssi", $usuario, $password, $nombre, $apellidos, $rol, $id);
   $stmt->execute();
 
-  header("Location: usuarios.php");
+  header("Location: ../usuarios.php");
   exit;
 }
 ?>
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
 <head>
   <meta charset="UTF-8">
   <title>Editar Usuario</title>
-  <link rel="stylesheet" href="../css/sistema.css">
+  <link rel="stylesheet" href="../../css/sistema.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
@@ -39,14 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
 
 
 <aside class="sidebar">
-  <img src="../img/logo.png" alt="UPTex" class="logo-sidebar" />
+  <img src="../../img/logo.png" alt="UPTex" class="logo-sidebar" />
   <nav>
     <ul>
-      <li><a href="../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
+      <li><a href="../../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
       <br /><br />
-      <li><a href="../php/accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
-      <li><a href="../html/personal.html" class="activo"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
-      <li><a href="../php/usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
+      <li><a href="../accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
+      <li><a href="../../html/personal.html" class="activo"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
+      <li><a href="../usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
     </ul>
   </nav>
 </aside>
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
     <main class="main-content">
       <header class="topbar d-flex justify-content-between align-items-center px-3">
         <div></div>
-        <a href="logout.php" class="btn-salir">
+        <a href="./logout.php" class="btn-salir">
   <i class="bi bi-box-arrow-right" style="margin-right: 6px;"></i> Cerrar Sesión
 </a>
 
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
       </div>
 
       <div class="botones-formulario">
-        <a href="usuarios.php" class="btn-cancelar">
+        <a href="../usuarios.php" class="btn-cancelar">
           <i class="bi bi-x-circle-fill" style="margin-right: 6px;"></i> Cancelar
         </a>
         <button type="submit" name="actualizar" class="btn-aceptar">

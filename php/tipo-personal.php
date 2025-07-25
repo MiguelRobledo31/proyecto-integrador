@@ -4,6 +4,7 @@ $conexion->set_charset("utf8"); $tipo = $_GET['tipo'] ?? ''; $tipo =
 $conexion->real_escape_string(strtolower($tipo)); $consulta = "SELECT * FROM
 personal WHERE tipo = '$tipo' ORDER BY apellidos ASC"; $resultado =
 $conexion->query($consulta); ?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>

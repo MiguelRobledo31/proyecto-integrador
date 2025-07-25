@@ -15,9 +15,9 @@
     <ul>
       <li><a href="../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
       <br /><br />
-      <li><a href="../php/accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
+      <li><a href="./accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
       <li><a href="../html/personal.html" class="activo"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
-      <li><a href="../php/usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
+      <li><a href="./usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
     </ul>
   </nav>
 </aside>
@@ -68,11 +68,11 @@
           </tr>
         </thead>
         <tbody>
-          <?php include '../php/listar-usuarios.php'; ?>
+          <?php include 'servicios/listar-usuarios.php'; ?>
         </tbody>
         </table>
         <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
-          <button class="btn-agregar" onclick="window.location.href='../php/registrar-usuario.php'">
+          <button class="btn-agregar" onclick="window.location.href='servicios/registrar-usuario.php'">
             <i class="bi bi-person-plus-fill" style="margin-right: 8px;"></i> Agregar Usuario
           </button>
         </div>

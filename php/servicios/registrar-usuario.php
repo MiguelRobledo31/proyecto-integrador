@@ -7,26 +7,27 @@ $apellidos = $_POST['apellidos'] ?? ''; $rol = $_POST['rol'] ?? ''; if ($usuario
 && $password && $nombre && $apellidos && $rol) { $stmt =
 $conexion->prepare("INSERT INTO usuarios (usuario, password, nombre, apellidos,
 rol) VALUES (?, ?, ?, ?, ?)"); $stmt->bind_param("sssss", $usuario, $password,
-$nombre, $apellidos, $rol); $stmt->execute(); header("Location: usuarios.php");
+$nombre, $apellidos, $rol); $stmt->execute(); header("Location: ../usuarios.php");
 exit; } } ?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <title>Agregar Usuario</title>
-    <link rel="stylesheet" href="../css/sistema.css" />
+    <link rel="stylesheet" href="../../css/sistema.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   </head>
 
   <body>
 <aside class="sidebar">
-  <img src="../img/logo.png" alt="UPTex" class="logo-sidebar" />
+  <img src="../../img/logo.png" alt="UPTex" class="logo-sidebar" />
   <nav>
     <ul>
-      <li><a href="../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
+      <li><a href="../../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
       <br /><br />
-      <li><a href="../php/accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
-      <li><a href="../html/personal.html" class="activo"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
+      <li><a href="../accesos.php"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
+      <li><a href="../../html/personal.html" class="activo"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
       <li><a href="../php/usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
     </ul>
   </nav>
@@ -38,7 +39,7 @@ exit; } } ?>
         class="topbar d-flex justify-content-between align-items-center px-3"
       >
         <div></div>
-        <a href="logout.php" class="btn-salir">
+        <a href="./logout.php" class="btn-salir">
   <i class="bi bi-box-arrow-right" style="margin-right: 6px;"></i> Cerrar Sesión
 </a>
 
@@ -78,7 +79,7 @@ exit; } } ?>
             </div>
 
             <div class="botones-formulario">
-              <a href="usuarios.php" class="btn-cancelar">
+              <a href="../usuarios.php" class="btn-cancelar">
                 <i class="bi bi-x-circle-fill" style="margin-right: 6px;"></i> Cancelar
               </a>
               <button type="submit" class="btn-aceptar">

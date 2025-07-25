@@ -24,13 +24,13 @@ if ($resultado->num_rows > 0):
       <td><?= htmlspecialchars($fila['apellidos']) ?></td>
       <td><?= htmlspecialchars($fila['rol']) ?></td>
       <td>
-        <form method="POST" action="../php/editar-usuario.php" style="display:inline;">
+        <form method="POST" action="servicios/editar-usuario.php" style="display:inline;">
           <input type="hidden" name="id" value="<?= $fila['id'] ?>">
           <button class="btn-editar" title="Editar">
             <i class="bi bi-pencil-fill"></i>
           </button>
         </form>
-        <form method="POST" action="../php/eliminar-usuario.php" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
+        <form method="POST" action="servicios/eliminar-usuario.php" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
           <input type="hidden" name="id" value="<?= $fila['id'] ?>">
           <button class="btn-eliminar" title="Eliminar">
             <i class="bi bi-trash-fill"></i>

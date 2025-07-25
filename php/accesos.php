@@ -16,9 +16,9 @@
     <ul>
       <li><a href="../index.php"><i class="bi bi-house-door-fill"></i> Control de Acceso</a></li>
       <br /><br />
-      <li><a href="../php/accesos.php" class="activo"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
+      <li><a href="./accesos.php" class="activo"><i class="bi bi-bar-chart-line-fill"></i> Accesos</a></li>
       <li><a href="../html/personal.html"><i class="bi bi-person-badge-fill"></i> Personal</a></li>
-      <li><a href="../php/usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
+      <li><a href="./usuarios.php"><i class="bi bi-people-fill"></i> Usuarios</a></li>
     </ul>
   </nav>
 </aside>

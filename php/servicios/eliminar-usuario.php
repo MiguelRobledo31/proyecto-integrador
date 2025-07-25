@@ -10,5 +10,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
     $stmt->execute();
 }
 
-header("Location: usuarios.php");
+header("Location: ../usuarios.php");
 exit;
