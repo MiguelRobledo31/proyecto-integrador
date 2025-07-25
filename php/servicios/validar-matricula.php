@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['mensaje'] = "Matrícula vacía";
         $_SESSION['icono'] = "✖";
         $_SESSION['color'] = "red";
-        header("Location: ../index.php");
+        header("Location: ../../index.php");
         exit;
     }
 
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['mensaje'] = "Error de conexión con la base de datos";
         $_SESSION['icono'] = "✖";
         $_SESSION['color'] = "red";
-        header("Location: ../index.php");
+        header("Location: ../../index.php");
         exit;
     }
 
@@ -73,6 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->close();
     $conn->close();
-    header("Location: ../index.php");
+    header("Location: ../../index.php");
     exit;
 }

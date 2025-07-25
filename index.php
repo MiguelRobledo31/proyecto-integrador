@@ -19,7 +19,7 @@
 
     <div class="formulario">
       <h2>Escanea la Matrícula</h2>
-      <form method="POST" action="php/validar-matricula.php">
+      <form method="POST" action="php/servicios/validar-matricula.php">
         
         <div class="campo-input">
           <i class="bi bi-qr-code-scan"></i>
