@@ -80,6 +80,22 @@ button:hover {
   width: 400px;
 }
 
+#iconoModal {
+  font-size: 64px;
+  margin-bottom: 15px;
+}
+
+#mensajeModal {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#detalleModal {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #333;
+}
+
 .oculto {
   display: none !important;
 }
@@ -106,24 +122,6 @@ button:hover {
 .admin-link:hover {
   background-color: #89222e;
 }
-
-#iconoModal {
-  font-size: 64px;
-  margin-bottom: 15px;
-}
-
-#mensajeModal {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-#detalleModal {
-  font-size: 14px;
-  margin-top: 5px;
-  color: #333;
-}
-
-
 
 
 

@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($matricula)) {
         $_SESSION['mensaje'] = "Matrícula vacía";
-        $_SESSION['icono'] = "✖";
+        $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
         header("Location: ../../index.php");
         exit;
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($conn->connect_error) {
         $_SESSION['mensaje'] = "Error de conexión con la base de datos";
-        $_SESSION['icono'] = "✖";
+        $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
         header("Location: ../../index.php");
         exit;
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, REGISTRO DE SALIDA";
                 $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
-                $_SESSION['icono'] = "⇨";
+                $_SESSION['icono'] = "bi-box-arrow-right";
                 $_SESSION['color'] = "blue";
             } else {
                 $insert = $conn->prepare("INSERT INTO accesos (matricula, fecha, hora_entrada) VALUES (?, ?, ?)");
@@ -57,17 +57,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, estás ACTIVO";
                 $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
-                $_SESSION['icono'] = "✓";
+                $_SESSION['icono'] = "bi-check-circle-fill";
                 $_SESSION['color'] = "green";
             }
         } else {
             $_SESSION['mensaje'] = "Matrícula registrada pero INACTIVA";
-            $_SESSION['icono'] = "✖";
+            $_SESSION['icono'] = "bi-x-circle-fill";
             $_SESSION['color'] = "red";
         }
     } else {
         $_SESSION['mensaje'] = "Matrícula no válida";
-        $_SESSION['icono'] = "✖";
+        $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
     }
 
