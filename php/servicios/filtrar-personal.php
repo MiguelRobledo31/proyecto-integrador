@@ -3,10 +3,26 @@ $conexion = new mysqli("localhost", "root", "", "sistema-control");
 $conexion->set_charset("utf8");
 
 $tipo = $_GET['tipo'] ?? '';
-$tipo = $conexion->real_escape_string(strtolower($tipo));
+$buscar = $_POST['buscar'] ?? '';
+$limite = isset($_POST['limite']) ? intval($_POST['limite']) : 10;
 
-$consulta = "SELECT * FROM personal WHERE tipo = '$tipo' ORDER BY apellidos ASC";
-$resultado = $conexion->query($consulta);
+$tipo = $conexion->real_escape_string(strtolower($tipo));
+$buscar = $conexion->real_escape_string($buscar);
+
+$sql = "SELECT * FROM personal WHERE tipo = '$tipo'";
+
+if (!empty($buscar)) {
+    $sql .= " AND (
+        matricula LIKE '%$buscar%' OR 
+        nombre LIKE '%$buscar%' OR 
+        apellidos LIKE '%$buscar%' OR 
+        carrera LIKE '%$buscar%'
+    )";
+}
+
+$sql .= " ORDER BY apellidos ASC LIMIT $limite";
+
+$resultado = $conexion->query($sql);
 
 if ($resultado->num_rows > 0):
     while ($fila = $resultado->fetch_assoc()):
@@ -23,6 +39,6 @@ if ($resultado->num_rows > 0):
 else:
 ?>
 <tr>
-  <td colspan="5">No hay registros para este tipo.</td>
+  <td colspan="5">No hay registros que coincidan.</td>
 </tr>
 <?php endif; ?>

@@ -2,15 +2,18 @@
 $conexion = new mysqli("localhost", "root", "", "sistema-control");
 $conexion->set_charset("utf8");
 
-$busqueda = $_GET['buscar'] ?? '';
-$busqueda = $conexion->real_escape_string($busqueda);
+$buscar = $_POST['buscar'] ?? '';
+$limite = isset($_POST['limite']) ? intval($_POST['limite']) : 10;
+
+$buscar = $conexion->real_escape_string($buscar);
 
 $consulta = "SELECT * FROM usuarios 
-             WHERE usuario LIKE '%$busqueda%' 
-             OR nombre LIKE '%$busqueda%' 
-             OR apellidos LIKE '%$busqueda%' 
-             OR rol LIKE '%$busqueda%'
-             ORDER BY id ASC";
+             WHERE usuario LIKE '%$buscar%' 
+             OR nombre LIKE '%$buscar%' 
+             OR apellidos LIKE '%$buscar%' 
+             OR rol LIKE '%$buscar%'
+             ORDER BY id ASC 
+             LIMIT $limite";
 
 $resultado = $conexion->query($consulta);
 
@@ -38,12 +41,12 @@ if ($resultado->num_rows > 0):
         </form>
       </td>
     </tr>
-  <?php
+<?php
   endwhile;
 else:
-  ?>
+?>
   <tr>
-    <td colspan="6">No hay usuarios registrados.</td>
+    <td colspan="6">No hay usuarios que coincidan.</td>
   </tr>
 <?php
 endif;

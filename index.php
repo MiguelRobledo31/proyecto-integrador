@@ -22,14 +22,23 @@
         <img src="img/logo.png" alt="Logo" class="logo">
 
         <div class="login-form">
-            <a href="php/entrada.php" target="_blank" class="boton-acceso">
+            <a href="#" onclick="abrirVentana('php/entrada.php')" class="boton-acceso">
                 <i class="bi bi-box-arrow-in-right"></i> Entrada
             </a>
-            <a href="php/salida.php" target="_blank" class="boton-acceso">
-                <i class="bi bi-box-arrow-left"></i> Salida
+
+            <a href="#" onclick="abrirVentana('php/salida.php')" class="boton-acceso">
+                <i class="bi bi-box-arrow-right"></i> Salida
             </a>
+
         </div>
     </div>
+
+    <script>
+        function abrirVentana(url) {
+            window.open(url, '_blank', 'width=600,height=700,top=100,left=200');
+        }
+    </script>
+
 
 </body>
 

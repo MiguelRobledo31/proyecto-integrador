@@ -4,7 +4,7 @@ date_default_timezone_set('America/Mexico_City');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $matricula = trim($_POST['matricula']);
-    $tipo = $_POST['tipo'] ?? 'entrada'; // 'entrada' o 'salida'
+    $tipo = $_POST['tipo'] ?? 'entrada';
 
     if (empty($matricula)) {
         $_SESSION['mensaje'] = "Matrícula vacía";
@@ -40,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $fecha = date("Y-m-d");
             $hora = date("H:i:s");
 
-            // Buscar acceso del día SIN hora de salida
             $consulta = $conn->prepare("SELECT id FROM accesos WHERE matricula = ? AND fecha = ? AND hora_salida IS NULL");
             $consulta->bind_param("ss", $matricula, $fecha);
             $consulta->execute();
@@ -74,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, SALIDA REGISTRADA";
                     $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
-                    $_SESSION['icono'] = "bi-box-arrow-right";
+                    $_SESSION['icono'] = "bi-box-arrow-left";
                     $_SESSION['color'] = "blue";
                 }
             }
