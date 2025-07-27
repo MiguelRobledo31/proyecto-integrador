@@ -2,41 +2,35 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Registro de Entrada</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
+    <title>Sistema de Control de Acceso</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
 <body>
-  <a href="php/admin.php" class="admin-link">
-    <i class="bi bi-person-lock" style="margin-right: 6px;"></i> Admin
-  </a>
+    <a href="php/admin.php" class="btn-volver">
+        <i class="bi bi-person-fill-gear" style="margin-right: 6px;"></i> Admin
+    </a>
 
-  <div class="contenedor">
-    <h1>REGISTRA TU ENTRADA</h1>
-    <div id="reloj"></div>
+    <div class="login-container">
+        <h2 style="color: white; font-size: 22px; text-transform: uppercase; margin-bottom: 15px;">
+            Sistema de Control<br>de Acceso
+        </h2>
+        <hr style="border: none; border-top: 1px solid #ffffff66; width: 80%; margin: 10px auto;">
 
-    <div class="formulario">
-      <h2>Escanea la Matrícula</h2>
-      <form method="POST" action="php/servicios/validar-matricula.php">
-        
-        <div class="campo-input">
-          <i class="bi bi-qr-code-scan"></i>
-          <input type="text" name="matricula" id="matricula" placeholder="Ingresa tu Matrícula" autofocus autocomplete="off">
+        <img src="img/logo.png" alt="Logo" class="logo">
+
+        <div class="login-form">
+            <a href="php/entrada.php" target="_blank" class="boton-acceso">
+                <i class="bi bi-box-arrow-in-right"></i> Entrada
+            </a>
+            <a href="php/salida.php" target="_blank" class="boton-acceso">
+                <i class="bi bi-box-arrow-left"></i> Salida
+            </a>
         </div>
-
-        <button type="submit">
-          <i class="bi bi-box-arrow-in-right" style="margin-right: 6px;"></i> Entrada
-        </button>
-      </form>
     </div>
-  </div>
 
-  <?php include 'php/mensaje.php'; ?>
-
-  <script src="js/reloj.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 
 </html>
