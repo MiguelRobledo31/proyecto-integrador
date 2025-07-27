@@ -21,6 +21,8 @@
       <h2>Escanea la Matrícula</h2>
       <form method="POST" action="servicios/validar-matricula.php">
 
+        <input type="hidden" name="tipo" value="entrada">
+
         <div class="campo-input">
           <i class="bi bi-qr-code-scan"></i>
           <input type="text" name="matricula" id="matricula" placeholder="Ingresa tu Matrícula" autofocus autocomplete="off">
@@ -33,7 +35,7 @@
     </div>
   </div>
 
-  <?php include 'mensaje.php'; ?>
+  <?php include '../php/mensaje.php'; ?>
 
   <script src="../js/reloj.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

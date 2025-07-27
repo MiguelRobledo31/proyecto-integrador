@@ -4,12 +4,15 @@ date_default_timezone_set('America/Mexico_City');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $matricula = trim($_POST['matricula']);
+    $tipo = $_POST['tipo'] ?? 'entrada'; // 'entrada' o 'salida'
 
     if (empty($matricula)) {
         $_SESSION['mensaje'] = "Matrícula vacía";
         $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
-        header("Location: ../../index.php");
+        $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
+        header("Location: {$baseURL}/{$tipo}.php");
+
         exit;
     }
 
@@ -19,7 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['mensaje'] = "Error de conexión con la base de datos";
         $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
-        header("Location: ../../index.php");
+        $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
+        header("Location: {$baseURL}/{$tipo}.php");
+
         exit;
     }
 
@@ -35,30 +40,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $fecha = date("Y-m-d");
             $hora = date("H:i:s");
 
+            // Buscar acceso del día SIN hora de salida
             $consulta = $conn->prepare("SELECT id FROM accesos WHERE matricula = ? AND fecha = ? AND hora_salida IS NULL");
             $consulta->bind_param("ss", $matricula, $fecha);
             $consulta->execute();
             $resultadoAcceso = $consulta->get_result();
 
-            if ($resultadoAcceso->num_rows > 0) {
-                $registro = $resultadoAcceso->fetch_assoc();
-                $update = $conn->prepare("UPDATE accesos SET hora_salida = ? WHERE id = ?");
-                $update->bind_param("si", $hora, $registro['id']);
-                $update->execute();
+            if ($tipo === 'entrada') {
+                if ($resultadoAcceso->num_rows > 0) {
+                    $_SESSION['mensaje'] = "Ya registraste ENTRADA hoy y no has salido";
+                    $_SESSION['icono'] = "bi-exclamation-circle-fill";
+                    $_SESSION['color'] = "orange";
+                } else {
+                    $insert = $conn->prepare("INSERT INTO accesos (matricula, fecha, hora_entrada) VALUES (?, ?, ?)");
+                    $insert->bind_param("sss", $matricula, $fecha, $hora);
+                    $insert->execute();
 
-                $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, REGISTRO DE SALIDA";
-                $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
-                $_SESSION['icono'] = "bi-box-arrow-right";
-                $_SESSION['color'] = "blue";
-            } else {
-                $insert = $conn->prepare("INSERT INTO accesos (matricula, fecha, hora_entrada) VALUES (?, ?, ?)");
-                $insert->bind_param("sss", $matricula, $fecha, $hora);
-                $insert->execute();
+                    $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, ENTRADA REGISTRADA";
+                    $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
+                    $_SESSION['icono'] = "bi-box-arrow-in-right";
+                    $_SESSION['color'] = "green";
+                }
+            } elseif ($tipo === 'salida') {
+                if ($resultadoAcceso->num_rows === 0) {
+                    $_SESSION['mensaje'] = "No tienes una ENTRADA registrada hoy";
+                    $_SESSION['icono'] = "bi-exclamation-circle-fill";
+                    $_SESSION['color'] = "orange";
+                } else {
+                    $registro = $resultadoAcceso->fetch_assoc();
+                    $update = $conn->prepare("UPDATE accesos SET hora_salida = ? WHERE id = ?");
+                    $update->bind_param("si", $hora, $registro['id']);
+                    $update->execute();
 
-                $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, estás ACTIVO";
-                $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
-                $_SESSION['icono'] = "bi-check-circle-fill";
-                $_SESSION['color'] = "green";
+                    $_SESSION['mensaje'] = "{$persona['nombre']} {$persona['apellidos']}, SALIDA REGISTRADA";
+                    $_SESSION['detalle'] = "COMO: " . strtoupper($persona['tipo']) . "<br>CARRERA: " . strtoupper($persona['carrera'] ?? 'N/A');
+                    $_SESSION['icono'] = "bi-box-arrow-right";
+                    $_SESSION['color'] = "blue";
+                }
             }
         } else {
             $_SESSION['mensaje'] = "Matrícula registrada pero INACTIVA";
@@ -73,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->close();
     $conn->close();
-    header("Location: ../../index.php");
+    $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
+    header("Location: {$baseURL}/{$tipo}.php");
+
     exit;
 }

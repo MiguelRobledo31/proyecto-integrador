@@ -20,7 +20,8 @@ unset($_SESSION['mensaje'], $_SESSION['detalle'], $_SESSION['tipo'], $_SESSION['
   </div>
   <script>
     setTimeout(() => {
-      window.location.href = "index.php";
+      window.location.href = location.pathname;
     }, 3000);
   </script>
+
 <?php endif; ?>
