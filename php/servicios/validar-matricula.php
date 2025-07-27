@@ -6,17 +6,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $matricula = trim($_POST['matricula']);
     $tipo = $_POST['tipo'] ?? 'entrada';
 
+    if (preg_match('/\b(\d{9})\b/', $matricula, $coincidencias)) {
+        $matricula = $coincidencias[1];
+    } else {
+        $_SESSION['mensaje'] = "La matrícula escaneada no es válida";
+        $_SESSION['icono'] = "bi-x-circle-fill";
+        $_SESSION['color'] = "red";
+        $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
+        header("Location: {$baseURL}/{$tipo}.php");
+        exit;
+    }
+
     if (empty($matricula)) {
         $_SESSION['mensaje'] = "Matrícula vacía";
         $_SESSION['icono'] = "bi-x-circle-fill";
         $_SESSION['color'] = "red";
         $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
         header("Location: {$baseURL}/{$tipo}.php");
-
         exit;
     }
 
     $conn = new mysqli("localhost", "root", "", "sistema-control");
+    $conn->set_charset("utf8");
 
     if ($conn->connect_error) {
         $_SESSION['mensaje'] = "Error de conexión con la base de datos";
@@ -24,9 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['color'] = "red";
         $baseURL = dirname(dirname($_SERVER['PHP_SELF']));
         header("Location: {$baseURL}/{$tipo}.php");
-
         exit;
     }
+
+
 
     $stmt = $conn->prepare("SELECT * FROM personal WHERE matricula = ?");
     $stmt->bind_param("s", $matricula);
