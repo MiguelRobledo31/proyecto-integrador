@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <a href="./admin.php" class="admin-link">
+  <a href="admin.php?volver=salida.php" class="admin-link">
     <i class="bi bi-person-lock" style="margin-right: 6px;"></i> Admin
   </a>
 
@@ -20,7 +20,7 @@
     <div class="formulario">
       <h2>Escanea la Matrícula</h2>
       <form method="POST" action="servicios/validar-matricula.php">
-        
+
         <div class="campo-input">
           <i class="bi bi-qr-code-scan"></i>
           <input type="text" name="matricula" id="matricula" placeholder="Ingresa tu Matrícula" autofocus autocomplete="off">

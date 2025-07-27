@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,12 @@
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
+
 <body>
-    <a href="../index.php" class="btn-volver">
+    <?php
+    $volver = $_GET['volver'] ?? '../index.php';
+    ?>
+    <a href="<?= htmlspecialchars($volver) ?>" class="btn-volver">
         <i class="bi bi-arrow-left-circle-fill" style="margin-right: 6px;"></i> Volver
     </a>
 
@@ -36,4 +41,5 @@
         <?php endif; ?>
     </div>
 </body>
+
 </html>
