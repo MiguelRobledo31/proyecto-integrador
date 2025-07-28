@@ -68,6 +68,13 @@
             <?php include 'servicios/filtrar-personal.php'; ?>
           </tbody>
         </table>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+          <button class="btn-agregar" onclick="window.location.href='servicios/registrar-personal.php?tipo=<?= urlencode($tipo) ?>'">
+            <i class="bi bi-person-plus-fill" style="margin-right: 8px;"></i> Agregar <?= ucfirst($tipo) ?>
+          </button>
+        </div>
+
       </div>
     </section>
   </main>
