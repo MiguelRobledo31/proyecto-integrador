@@ -34,7 +34,7 @@
 
     <section class="contenido">
       <div class="encabezado-tabla">
-        <h2>Listado de Usuarios para Iniciar Sesión<z /h2>
+        <h2>Listado de Usuarios para Iniciar Sesión</h2>
       </div>
 
 <form method="POST" class="fila-controles">

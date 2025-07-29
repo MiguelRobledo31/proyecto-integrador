@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['importar'])) {
               <i class="bi bi-x-circle-fill" style="margin-right: 6px;"></i> Cancelar
             </a>
             <button type="submit" name="importar" class="btn-aceptar">
-              <i class="bi bi-upload" style="margin-right: 6px;"></i> Importar
+              <i class="bi bi-download" style="margin-right: 6px;"></i> Importar
             </button>
           </div>
         </form>
