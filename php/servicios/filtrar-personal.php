@@ -33,7 +33,22 @@ if ($resultado->num_rows > 0):
   <td><?= htmlspecialchars($fila['apellidos']) ?></td>
   <td><?= htmlspecialchars($fila['carrera']) ?></td>
   <td><?= $fila['estado'] ? 'Activo' : 'Inactivo' ?></td>
+  <td>
+<form action="servicios/editar-personal.php" method="POST" style="display: inline;">
+  <input type="hidden" name="matricula" value="<?= $fila['matricula'] ?>">
+  <input type="hidden" name="tipo" value="<?= htmlspecialchars($fila['tipo']) ?>">
+  <button class="btn-editar" title="Editar"><i class="bi bi-pencil-square"></i></button>
+</form>
+
+<form action="servicios/eliminar-personal.php" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
+  <input type="hidden" name="matricula" value="<?= $fila['matricula'] ?>">
+  <input type="hidden" name="tipo" value="<?= htmlspecialchars($fila['tipo']) ?>">
+  <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
+</form>
+
+  </td>
 </tr>
+
 <?php
     endwhile;
 else:

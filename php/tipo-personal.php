@@ -67,6 +67,7 @@
 
       <div class="tabla-container">
         <table>
+          
           <thead>
             <tr>
               <th>Matrícula</th>
@@ -74,8 +75,11 @@
               <th>Apellidos</th>
               <th>Carrera</th>
               <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
+
+
           <tbody>
             <?php include 'servicios/filtrar-personal.php'; ?>
           </tbody>

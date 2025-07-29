@@ -1,5 +1,6 @@
 puntos a agregar:
 
-- agregar la opcion para exportar las salidas en un excel y que cree un reporte dinamico
+- agregar la opcion para exportar las salidas en un excel o pdf dinamico y permita descargar el archivo o enviarlo por correo como en el de importar o exportar csv
 - hacer que sea responsivo todo el sitio
-- agregar que se pueda modificar o eliminar una persona
+
+- !ingeniar algun metodo para la recuperacion de contraseña
