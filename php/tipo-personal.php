@@ -69,9 +69,17 @@
           </tbody>
         </table>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
           <button class="btn-agregar" onclick="window.location.href='servicios/registrar-personal.php?tipo=<?= urlencode($tipo) ?>'">
             <i class="bi bi-person-plus-fill" style="margin-right: 8px;"></i> Agregar <?= ucfirst($tipo) ?>
+          </button>
+
+          <button class="btn-agregar" onclick="window.location.href='servicios/importar-csv.php?tipo=<?= urlencode($tipo) ?>'">
+            <i class="bi bi-download" style="margin-right: 8px;"></i> Importar <?= ucfirst($tipo) ?>
+          </button>
+
+          <button class="btn-agregar" onclick="window.location.href='servicios/exportar-csv.php?tipo=<?= urlencode($tipo) ?>'">
+            <i class="bi bi-upload" style="margin-right: 8px;"></i> Exportar <?= ucfirst($tipo) ?>
           </button>
         </div>
 

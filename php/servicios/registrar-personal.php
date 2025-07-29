@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $carrera = $_POST['carrera'] ?? '';
     $estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
     $tipo = $_POST['tipo'] ?? '';
+    $rutaFoto = '';
 
     $verificar = $conexion->prepare("SELECT matricula FROM personal WHERE matricula = ?");
     $verificar->bind_param("s", $matricula);
@@ -22,13 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $verificar->close();
 
     if ($matricula && $nombre && $apellidos && $tipo && ($tipo === 'alumno' ? $carrera : true)) {
-        $stmt = $conexion->prepare("INSERT INTO personal (matricula, nombre, apellidos, carrera, estado, tipo) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssis", $matricula, $nombre, $apellidos, $carrera, $estado, $tipo);
+
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+            $nombreFoto = $matricula . '.' . strtolower($ext);
+            $destino = '../../fotos/' . $nombreFoto;
+            move_uploaded_file($_FILES['foto']['tmp_name'], $destino);
+            $rutaFoto = 'fotos/' . $nombreFoto;
+        }
+
+        $stmt = $conexion->prepare("INSERT INTO personal (matricula, nombre, apellidos, carrera, estado, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssiss", $matricula, $nombre, $apellidos, $carrera, $estado, $tipo, $rutaFoto);
         $stmt->execute();
         header("Location: ../tipo-personal.php?tipo=$tipo");
         exit;
     }
 }
+
 $tipo = $_GET['tipo'] ?? '';
 ?>
 
@@ -70,7 +81,7 @@ $tipo = $_GET['tipo'] ?? '';
         <section class="contenido">
             <h2>Agregar nuevo personal</h2>
             <div class="formulario-container">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="matricula">Matrícula:</label>
                         <input type="text" id="matricula" name="matricula" required>
@@ -99,6 +110,12 @@ $tipo = $_GET['tipo'] ?? '';
                             <option value="0">Inactivo</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto (opcional):</label>
+                        <input type="file" id="foto" name="foto" accept="image/*">
+                    </div>
+
 
 
                     <input type="hidden" name="tipo" value="<?= htmlspecialchars($_GET['tipo'] ?? '') ?>">
