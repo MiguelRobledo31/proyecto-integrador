@@ -37,20 +37,32 @@
       ?>
       <h2>Listado de <?= $tipoMostrar ?></h2>
 
-      <form method="POST" class="controles-tabla">
-        <label>Mostrar
-          <select name="limite" onchange="this.form.submit()">
-            <option value="10" <?= isset($_POST['limite']) && $_POST['limite'] == 10 ? 'selected' : '' ?>>10</option>
-            <option value="25" <?= isset($_POST['limite']) && $_POST['limite'] == 25 ? 'selected' : '' ?>>25</option>
-            <option value="50" <?= isset($_POST['limite']) && $_POST['limite'] == 50 ? 'selected' : '' ?>>50</option>
-          </select> entradas
-        </label>
 
-        <div style="display: flex; gap: 5px;">
-          <input type="search" name="buscar" placeholder="Buscar..." value="<?= isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : '' ?>">
-          <button type="submit">Buscar</button>
+
+
+      <form method="POST" class="fila-controles">
+
+        <div class="paginacion-select">
+          <label>
+            <i class="bi bi-funnel-fill"></i>
+            Mostrar
+            <select name="limite" onchange="this.form.submit()">
+              <option value="10" <?= isset($_POST['limite']) && $_POST['limite'] == 10 ? 'selected' : '' ?>>10</option>
+              <option value="25" <?= isset($_POST['limite']) && $_POST['limite'] == 25 ? 'selected' : '' ?>>25</option>
+              <option value="50" <?= isset($_POST['limite']) && $_POST['limite'] == 50 ? 'selected' : '' ?>>50</option>
+            </select> entradas
+          </label>
         </div>
+
+
+        <div class="campo-busqueda">
+          <i class="bi bi-search"></i>
+          <input type="search" name="buscar" placeholder="Buscar..." value="<?= isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : '' ?>">
+        </div>
+
       </form>
+
+
 
 
       <div class="tabla-container">

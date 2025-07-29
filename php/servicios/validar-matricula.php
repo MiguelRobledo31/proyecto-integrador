@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $persona = $resultado->fetch_assoc();
 
         if ($persona['estado']) {
+            $_SESSION['foto'] = $persona['foto'] ?? null;
             $fecha = date("Y-m-d");
             $hora = date("H:i:s");
 

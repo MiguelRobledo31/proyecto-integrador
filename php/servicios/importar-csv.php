@@ -5,60 +5,68 @@ $conexion = new mysqli("localhost", "root", "", "sistema-control");
 $conexion->set_charset("utf8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['importar'])) {
-    $tipo = $_POST['tipo'] ?? '';
-    $csv = $_FILES['archivo_csv']['tmp_name'] ?? null;
-    $zip = $_FILES['archivo_zip']['tmp_name'] ?? null;
-    $rutaFotos = '../../fotos/';
+  $tipo = $_POST['tipo'] ?? '';
+  $csv = $_FILES['archivo_csv']['tmp_name'] ?? null;
+  $zip = $_FILES['archivo_zip']['tmp_name'] ?? null;
+  $rutaFotos = '../../fotos/';
 
-    if ($zip && is_uploaded_file($zip)) {
-        $zipObj = new ZipArchive;
-        if ($zipObj->open($zip) === TRUE) {
-            $zipObj->extractTo($rutaFotos);
-            $zipObj->close();
-        } else {
-            echo "<script>alert('Error al descomprimir el archivo ZIP');</script>";
-        }
-    }
-
-    if ($csv && is_uploaded_file($csv)) {
-        $handle = fopen($csv, 'r');
-        $encabezados = fgetcsv($handle);
-
-        while (($fila = fgetcsv($handle)) !== false) {
-            list($matricula, $nombre, $apellidos, $carrera, $estado, $foto) = $fila;
-
-            $verificar = $conexion->prepare("SELECT matricula FROM personal WHERE matricula = ?");
-            $verificar->bind_param("s", $matricula);
-            $verificar->execute();
-            $verificar->store_result();
-
-            if ($verificar->num_rows > 0) {
-                $verificar->close();
-                continue;
-            }
-            $verificar->close();
-
-            if (!$foto) {
-                $foto = "fotos/{$matricula}.jpg";
-            }
-
-            $stmt = $conexion->prepare("INSERT INTO personal (matricula, nombre, apellidos, carrera, estado, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssiss", $matricula, $nombre, $apellidos, $carrera, $estado, $tipo, $foto);
-            $stmt->execute();
-        }
-
-        fclose($handle);
-        echo "<script>alert('Importación finalizada correctamente'); window.location.href = '../tipo-personal.php?tipo=" . urlencode($tipo) . "';</script>";
-        exit;
+  if ($zip && is_uploaded_file($zip)) {
+    $zipObj = new ZipArchive;
+    if ($zipObj->open($zip) === TRUE) {
+      $zipObj->extractTo($rutaFotos);
+      $zipObj->close();
     } else {
-        echo "<script>alert('Archivo CSV inválido o no cargado');</script>";
+      echo "<script>alert('Error al descomprimir el archivo ZIP');</script>";
     }
+  }
+
+  if ($csv && is_uploaded_file($csv)) {
+    $handle = fopen($csv, 'r');
+    $encabezados = fgetcsv($handle);
+
+    while (($fila = fgetcsv($handle)) !== false) {
+      list($matricula, $nombre, $apellidos, $carrera, $estado, $foto) = $fila;
+
+      $verificar = $conexion->prepare("SELECT matricula FROM personal WHERE matricula = ?");
+      $verificar->bind_param("s", $matricula);
+      $verificar->execute();
+      $verificar->store_result();
+
+      if ($verificar->num_rows > 0) {
+        $verificar->close();
+        continue;
+      }
+      $verificar->close();
+
+      if (!$foto) {
+        if (file_exists($rutaFotos . $matricula . '.png')) {
+          $foto = "fotos/{$matricula}.png";
+        } elseif (file_exists($rutaFotos . $matricula . '.jpg')) {
+          $foto = "fotos/{$matricula}.jpg";
+        } else {
+          $foto = '';
+        }
+      }
+
+
+      $stmt = $conexion->prepare("INSERT INTO personal (matricula, nombre, apellidos, carrera, estado, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("ssssiss", $matricula, $nombre, $apellidos, $carrera, $estado, $tipo, $foto);
+      $stmt->execute();
+    }
+
+    fclose($handle);
+    echo "<script>alert('Importación finalizada correctamente'); window.location.href = '../tipo-personal.php?tipo=" . urlencode($tipo) . "';</script>";
+    exit;
+  } else {
+    echo "<script>alert('Archivo CSV inválido o no cargado');</script>";
+  }
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Importar <?= $tipoMostrar ?></title>
@@ -110,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['importar'])) {
               <i class="bi bi-x-circle-fill" style="margin-right: 6px;"></i> Cancelar
             </a>
             <button type="submit" name="importar" class="btn-aceptar">
-              <i class="bi bi-download" style="margin-right: 6px;"></i> Importar
+              <i class="bi bi-upload" style="margin-right: 6px;"></i> Importar
             </button>
           </div>
         </form>
@@ -118,4 +126,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['importar'])) {
     </section>
   </main>
 </body>
+
 </html>

@@ -9,15 +9,15 @@ $sql = "SELECT a.matricula, CONCAT(p.nombre, ' ', p.apellidos) AS nombre_complet
         FROM accesos a
         JOIN personal p ON a.matricula = p.matricula";
 
-
 if (!empty($buscar)) {
-    $sql .= " WHERE personal.matricula LIKE '%$buscar%' 
-              OR nombre LIKE '%$buscar%' 
-              OR apellidos LIKE '%$buscar%' 
-              OR tipo LIKE '%$buscar%'";
+    $sql .= " WHERE a.matricula LIKE '%$buscar%' 
+              OR p.nombre LIKE '%$buscar%' 
+              OR p.apellidos LIKE '%$buscar%' 
+              OR p.tipo LIKE '%$buscar%'";
 }
 
 $sql .= " ORDER BY fecha DESC, hora_entrada DESC LIMIT $limite";
+
 
 $resultado = $conn->query($sql);
 ?>

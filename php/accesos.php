@@ -34,20 +34,27 @@
   <section class="contenido px-4 pt-4">
     <h2 class="mb-3">Registros de Acceso</h2>
 
-    <form method="POST" class="controles-tabla" action="servicios/listar-accesos.php">
-      <label>Mostrar
-        <select name="limite">
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-        </select> entradas
-      </label>
+<form method="POST" class="fila-controles">
 
-      <div style="display: flex; gap: 5px;">
-        <input type="search" name="buscar" placeholder="Buscar...">
-        <button type="submit">Buscar</button>
-      </div>
-    </form>
+  <div class="paginacion-select">
+    <label>
+      <i class="bi bi-funnel-fill"></i>
+      Mostrar
+      <select name="limite" onchange="this.form.submit()">
+        <option value="10" <?= isset($_POST['limite']) && $_POST['limite'] == 10 ? 'selected' : '' ?>>10</option>
+        <option value="25" <?= isset($_POST['limite']) && $_POST['limite'] == 25 ? 'selected' : '' ?>>25</option>
+        <option value="50" <?= isset($_POST['limite']) && $_POST['limite'] == 50 ? 'selected' : '' ?>>50</option>
+      </select> entradas
+    </label>
+  </div>
+
+  <div class="campo-busqueda">
+    <i class="bi bi-search"></i>
+    <input type="search" name="buscar" placeholder="Buscar..." value="<?= isset($_POST['buscar']) ? htmlspecialchars($_POST['buscar']) : '' ?>">
+  </div>
+
+</form>
+
 
     <div class="tabla-container">
       <?php include("servicios/listar-accesos.php"); ?>
